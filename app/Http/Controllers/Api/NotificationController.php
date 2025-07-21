@@ -11,8 +11,8 @@ class NotificationController extends Controller
     {
         $client = $request->user();
         $notifications = $client->notifications()
-            ->with('donationRequest.bloodType', 'donationRequest.city')
-            ->orderBy('pivot_created_at', 'desc')
+         ->with('donationRequest.bloodType' , 'donationRequest.city')
+            ->orderBy('sent_at', 'desc')
             ->paginate(20);
             // ->get();
 

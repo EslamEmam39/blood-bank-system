@@ -76,9 +76,9 @@ public function favorites()
 
     public function notifications()
     {
-        // return $this->belongsToMany(Notification::class, 'client_notification');
+        return $this->belongsToMany(Notification::class, 'client_notification');
 
-            return $this->belongsToMany(Notification::class)->withPivot('is_read');
+            // return $this->belongsToMany(Notification::class)->withPivot('is_read');
 
     }
   

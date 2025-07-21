@@ -21,7 +21,7 @@ class Notification extends Model
 
     public function donationRequest()
     {
-        return $this->belongsToMany(DonationRequest::class);
+        return $this->belongsTo(DonationRequest::class);
     }
 
  
