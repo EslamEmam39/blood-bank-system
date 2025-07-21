@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Governorate;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,7 @@ class GovernorateController extends Controller
     public function index()
     {
         $governorates = Governorate::latest()->paginate(10);
-        return view('governorates.index', compact('governorates'));
+        return view('admin.governorates.index', compact('governorates'));
 
     }
 
@@ -22,7 +23,7 @@ class GovernorateController extends Controller
      */
     public function create()
     {
-                return view('governorates.create');
+                return view('admin.governorates.create');
     }
 
     /**
@@ -55,7 +56,7 @@ class GovernorateController extends Controller
     public function edit(string $id)
     {
         $governorate = Governorate::findOrFail($id);
-        return view('governorates.edit' , compact('governorate'));
+        return view('admin.governorates.edit' , compact('governorate'));
     }
 
     /**

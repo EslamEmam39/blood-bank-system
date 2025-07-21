@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -13,14 +14,14 @@ class CategoryController extends Controller
     public function index()    
     {
     $categories = Category::latest()->paginate(10);
-    return view('categories.index', compact('categories'));    }
+    return view('admin.categories.index', compact('categories'));    }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('categories.create');
+        return view('admin.categories.create');
     }
 
     /**
@@ -52,7 +53,7 @@ class CategoryController extends Controller
     {
             $category = Category::findOrFail($id);
 
-        return view('categories.edit',compact('category'));    }
+        return view('admin.categories.edit',compact('category'));    }
 
     /**
      * Update the specified resource in storage.

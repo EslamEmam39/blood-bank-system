@@ -29,9 +29,25 @@
     <link rel="stylesheet" href="{{ asset('asset/css/style.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('asset/css/style-ltr.css') }}"> --}}
 
-    <title>Blood Bank</title>
+    <title> @yield('title') BloodBank</title>
+
+
+    <!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+ <!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+ 
+ 
+ <style>
+    #map {
+        height: 400px;
+        margin-bottom: 15px;
+    }
+</style>
 </head>
 
+ 
 <body>
     <!--upper-bar-->
     <div class="upper-bar">
@@ -53,7 +69,12 @@
                             <a href="{{ $settings->twitter_url }}" target="blank" class="twitter"><i
                                     class="fab fa-twitter"></i></a>
                             <a href="https://wa.me/{{ '2' . ltrim($settings->whatsapp, '0') }}" target="blank"
-                                class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+                                class="whatsapp"><i class="fab fa-whatsapp">
+                                    </i></a>
+
+                         <a href="{{ route('favorites.list') }}" 
+                                ><i class="fa-solid fa-heart"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -142,10 +163,10 @@
                             <a class="nav-link" href="{{ route('about.app') }}">عن بنك الدم</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">المقالات</a>
+                            <a class="nav-link" href="{{ route('articles.list') }}">المقالات</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('donation.request') }}">طلبات التبرع</a>
+                            <a class="nav-link" href="{{ route('donation.list') }}">طلبات التبرع</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('about.app') }}">من نحن</a>
@@ -156,7 +177,7 @@
                     </ul>
 
                     <!--not a member-->
-                    <div class="accounts">
+                    <div class="accounts d-flex align-items-center">
                         @if (Auth::guard('client')->check())
 
                         <form method="POST" action="{{ route('client.logout') }}">
@@ -167,19 +188,20 @@
 
                         </form>
                         @else
-                        <a href="{{ route('client.register') }}" class="create">إنشاء حساب جديد</a>
+                        <a href="{{ route('client.register') }}" class="create btn btn-info" style="text-decoration: none">إنشاء حساب جديد</a>
                         <a href="{{ route('client.login') }}" class="signin">الدخول</a>
                         @endif
 
+                  <a href="{{ route('donation.request.create') }}" class="donate btn btn-primary pe-2">
+                        <img src="{{ asset('asset/imgs/transfusion.svg') }}">
+                        <p>طلب تبرع</p>
+                    </a>
 
                     </div>
 
                     {{-- I'm a member --}}
-                    {{--
-                    <a href="#" class="donate">
-                        <img src="{{ asset('asset/imgs/transfusion.svg') }}">
-                        <p>طلب تبرع</p>
-                    </a> --}}
+                    
+                
 
 
                 </div>

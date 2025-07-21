@@ -14,14 +14,14 @@ class RoleController extends Controller
 
     $roles = Role::all();
 
-    return view('roles.index' , compact('roles'));
+    return view('admin.roles.index' , compact('roles'));
   } //end 
 
 
   public function create(){
 
       $permissions = Permission::all();
-    return view('roles.create', compact('permissions'));
+    return view('admin.roles.create', compact('permissions'));
   }
 
 
@@ -60,7 +60,7 @@ class RoleController extends Controller
     $role = Role::findOrFail($id);
         $permissions = Permission::all();
 
-    return view('roles.edit' , compact('role' ,'permissions'));
+    return view('admin.roles.edit' , compact('role' ,'permissions'));
   }
 
 

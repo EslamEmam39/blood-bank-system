@@ -38,6 +38,11 @@ class DonationRequest extends Model
         return $this->belongsTo(City::class);
     }
 
+    public function notifications()
+{
+    return $this->hasMany(Notification::class);
+}
+
 
     public function scopeFilter($query, $filters)
 {

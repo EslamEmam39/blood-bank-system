@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\City;
 use App\Models\Governorate;
@@ -14,7 +16,7 @@ class CityController extends Controller
     public function index()
     {
           $cities = City::latest()->paginate(10);
-        return view('cities.index', compact('cities'));   
+        return view('admin.cities.index', compact('cities'));   
      }
 
     /**
@@ -23,7 +25,7 @@ class CityController extends Controller
     public function create()
     {
    $governorates = Governorate::all();
-    return view('cities.create', compact('governorates'));
+    return view('admin.cities.create', compact('governorates'));
 
 
     }
@@ -58,7 +60,7 @@ class CityController extends Controller
     {
          $governorates = Governorate::all();
          $city = City::findOrFail($id);
-        return view('cities.edit' , compact('governorates','city'));
+        return view('admin.cities.edit' , compact('governorates','city'));
     }
 
     /**

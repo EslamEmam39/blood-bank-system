@@ -1,6 +1,13 @@
 @extends('front.master')
 
 @section('content')
+@if (session('success'))
+
+<div class="alert alert-primary">
+ {{ session('success') }}
+</div>
+    
+@endif
 <div class="article-details">
      <div class="inside-article">
             <div class="container">
@@ -8,7 +15,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('/') }}">الرئيسية</a></li>
-                            <li class="breadcrumb-item" aria-current="page"><a href="#">المقالات</a></li>
+                            <li class="breadcrumb-item" aria-current="page"><a href="{{ route('articles.list') }}">المقالات</a></li>
                             <li class="breadcrumb-item active" aria-current="page">الوقاية من الأمراض</li>
                         </ol>
                     </nav>
@@ -21,8 +28,22 @@
                         <h4>{{$article->title}}</h4>
                     </div>
                     <div class="icon col-6">
-                        <button type="button"><i class="far fa-heart"></i></button>
+                        
+                @if(auth()->guard('client')->check() && auth()->guard('client')->user()->favorites->contains($article->id))
+                    <form method="POST" action="{{ route('favorites.remove' , $article->id) }}">
+                        @csrf
+                        <button type="submit" class="btn btn-danger">❤️ إزالة من المفضلة</button>
+                    </form>
+                    @else
+                    <form method="POST" action="{{ route('favorites.add' , $article->id) }}">
+                        @csrf
+                        <button type="submit" class="btn btn-danger">❤️ اضافة إلى المفضلة</button>
+                    </form>
+                    @endif
+
+ 
                     </div>
+
                 </div>
                 
                 <!--text-->

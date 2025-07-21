@@ -6,7 +6,8 @@
                             <img src="{{ asset('asset/imgs/logo.png') }}">
                             <h4>بنك الدم</h4>
                             <p>
-                                هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى.
+                     {!! \Illuminate\Support\Str::limit(optional($settings)->about_app, 100) !!}
+
                             </p>
                         </div>
                         <div class="pages col-md-4">
@@ -14,7 +15,7 @@
                                 <a class="list-group-item list-group-item-action active" id="list-home-list" href="{{ route('/') }}" role="tab" aria-controls="home">الرئيسية</a>
                                 <a class="list-group-item list-group-item-action" id="list-profile-list" href="{{ route('about.app') }}" role="tab" aria-controls="profile">عن بنك الدم</a>
                                 <a class="list-group-item list-group-item-action" id="list-messages-list" href="{{ route('articles.index') }}" role="tab" aria-controls="messages">المقالات</a>
-                                <a class="list-group-item list-group-item-action" id="list-settings-list" href="{{ route('donation.request') }}" role="tab" aria-controls="settings">طلبات التبرع</a>
+                                <a class="list-group-item list-group-item-action" id="list-settings-list" href="{{ route('donation.list') }}" role="tab" aria-controls="settings">طلبات التبرع</a>
                                 <a class="list-group-item list-group-item-action" id="list-settings-list" href="{{ route('about.app') }}" role="tab" aria-controls="settings">من نحن</a>
                                 <a class="list-group-item list-group-item-action" id="list-settings-list" href="{{ route('contact.us') }}" role="tab" aria-controls="settings">اتصل بنا</a>
                             </div>
@@ -66,6 +67,8 @@
         <script src="{{ asset('asset/js/owl.carousel.min.js') }}"></script>
         
         <script src="{{ asset('asset/js/main.js') }}"></script>
+ 
+ 
 
         @yield('js')
     </body>

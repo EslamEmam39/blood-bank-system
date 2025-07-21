@@ -6,11 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\DonationRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
 
 class DonationController extends Controller
 {
     public function createDonationRequest(Request $request)
 {
+ 
+
+
     $data = $request->validate([
         'patient_name'     => 'required|string|max:255',
         'patient_age'      => 'required|integer|min:0',
@@ -24,27 +29,36 @@ class DonationController extends Controller
         'latitude'         => 'nullable|numeric|between:-90,90',
         'longitude'        => 'nullable|numeric|between:-180,180',
     ]);
+            
 
-   $data['client_id']= $request->user()->id ;
-
-
-   
+    $data['client_id'] = $request->user()->id;
+  Log::info('Current User: ' . json_encode($request->user()));
+ 
     $donationRequest = DonationRequest::create( $data);
+
 
 $clientsID = $donationRequest->city->governorate->clients()
     ->whereHas('bloodTypes', function ($q) use ($request , $donationRequest) {
         $q->where('blood_types.id', $donationRequest->blood_type_id);
-    })->pluck('clients.id')->toArray();
+    })->where('is_active', 1)
+      ->where('clients.id', '!=', $request->user()->id) 
+      ->pluck('clients.id')
+      ->toArray();
+ 
 
-// dd($clientsID);
+       if (!empty($clientsID)) {
+        $notificationService = new \App\Services\NotificationService();
+        $notificationService->sendDonationRequestNotifications($donationRequest, $clientsID);
+    }
+
  
     return response()->json([
         'status' => 200,
-        'message' => 'تم إرسال طلب التبرع بنجاح',
-        'donation_request' => $donationRequest
+        'message' => 'تم إنشاء طلب التبرع وإرسال الإشعارات بنجاح',
+        'donation_request' => $donationRequest,
+        'notifications_sent' => count($clientsID)
     ]);
 }
-
 public function getDonationRequests(Request $request)
 {
   

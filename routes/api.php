@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\ResetPasswordController;
 use App\Http\Controllers\Api\DonationController;
 use App\Http\Controllers\Api\GeneralController;
+use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -69,6 +70,17 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/donation-requests', [DonationController::class, 'getDonationRequests']);
     Route::get('/donation-requests/{id}', [DonationController::class, 'showDonationRequest']);
 
+});
+
+
+
+    Route::middleware('auth:sanctum')->group(function () {
+    // Existing routes...
+    
+    // Notification routes
+    Route::get('/notifications', [NotificationController::class, 'index']);
+    Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
+    Route::get('/notifications/unread-count', [NotificationController::class, 'unreadCount']);
 });
 
   

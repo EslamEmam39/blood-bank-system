@@ -49,6 +49,7 @@ class RegisterController extends Controller
         $token = $client->createToken('client-token')->plainTextToken;
 
         $client->governorates()->attach($client->city->governorate_id);
+ 
         $client->bloodTypes()->attach($request->blood_type_id);
 
         return response()->json([

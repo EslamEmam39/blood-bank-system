@@ -99,6 +99,7 @@
 @section('js')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        
         let governorateSelect = document.getElementById('governorates');
         let citySelect = document.getElementById('cities');
 

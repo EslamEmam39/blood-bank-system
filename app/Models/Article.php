@@ -17,6 +17,11 @@ class Article extends Model
         'image',
     ];
 
+    public function favoritedBy()
+{
+    return $this->belongsToMany(    Client::class, 'favorites')->withTimestamps();
+}
+
     public function category()
     {
         return $this->belongsTo(Category::class);

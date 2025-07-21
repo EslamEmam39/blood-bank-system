@@ -34,5 +34,20 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+  
+    // Add to the services array
+            'sms' => [
+            'api_key' => env('SMS_API_KEY'),
+            'api_url' => env('SMS_API_URL'),
+            'from' => env('SMS_FROM_NUMBER'),
+        ],
+
+  'twilio' => [
+    'sid' => env('TWILIO_SID'),
+    'token' => env('TWILIO_AUTH_TOKEN'),
+    'phone' => env('TWILIO_PHONE'),
+    'verify_sid' => env('TWILIO_VERIFY_SERVICE_SID'),
+
+],
 
 ];

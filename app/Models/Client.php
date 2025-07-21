@@ -7,11 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use Laravel\Sanctum\HasApiTokens;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 // هنا تم تعديل الوراثه من model to Authenticatable
 class Client extends Authenticatable
 {
-    use HasFactory , HasApiTokens;
+    use HasFactory , HasApiTokens , HasRoles; 
+
+       protected $guard_name = 'client';
 
    protected $fillable = [
         'name',
@@ -34,6 +37,10 @@ class Client extends Authenticatable
         'pin_code',
     ];
 
+public function favorites()
+{
+    return $this->belongsToMany(Article::class, 'favorites' ,'client_id' , 'article_id')->withTimestamps();
+}
 
   
     public function bloodType()
@@ -69,7 +76,10 @@ class Client extends Authenticatable
 
     public function notifications()
     {
-        return $this->belongsToMany(Notification::class, 'client_notification');
+        // return $this->belongsToMany(Notification::class, 'client_notification');
+
+            return $this->belongsToMany(Notification::class)->withPivot('is_read');
+
     }
   
   

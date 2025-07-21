@@ -10,17 +10,19 @@ class Notification extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'content', 'sent_at', 'is_read', 'client_id', 'donation_request_id',
+        'title', 'content', 'sent_at', 'is_read',  'donation_request_id',
     ];
 
 
-    public function client()
+    public function clients()
     {
         return $this->belongsToMany(Client::class);
     }
 
     public function donationRequest()
     {
-        return $this->belongsTo(DonationRequest::class);
+        return $this->belongsToMany(DonationRequest::class);
     }
+
+ 
 }

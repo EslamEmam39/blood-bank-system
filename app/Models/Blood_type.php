@@ -22,4 +22,6 @@ class Blood_type extends Model
         {
             return $this->hasMany(DonationRequest::class);
         }
+
+        
 }

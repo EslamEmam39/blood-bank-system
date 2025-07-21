@@ -11,28 +11,12 @@ use Spatie\Permission\Models\Role;
 class UserController extends Controller
 {
 
-    public function editRole($id)
-{
-    $user = User::findOrFail($id);
-    $roles = Role::all();
-    return view('users.edit-role', compact('user', 'roles'));
-}
-
-public function updateRole(Request $request, User $user)
-{
-    $request->validate([
-        'role' => 'required|exists:roles,name',
-    ]);
-
-    $user->syncRoles([$request->role]);
-
-    return redirect()->route('users.index')->with('success', 'تم تحديث دور المستخدم بنجاح');
-}
+  
     public function index()
     {
 
               $users = User::latest()->paginate(10);
-        return view('users.index', compact('users'));
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -41,7 +25,7 @@ public function updateRole(Request $request, User $user)
     public function create()
     {
             $roles = Role::all();
-            return view('users.create', compact('roles'));
+            return view('admin.users.create', compact('roles'));
 
     }
 
@@ -82,7 +66,7 @@ public function updateRole(Request $request, User $user)
     {
           $user = User::findOrFail($id);
          $roles = Role::all();  
-     return view('users.edit', compact('user', 'roles'));
+     return view('admin.users.edit', compact('user', 'roles'));
 
     }
 

@@ -13,11 +13,18 @@ class RolesSeeder extends Seeder
      */
     public function run(): void
     {
-                $roles = ['admin', 'staff', 'client'];
+                $roles =[
+                    ['name' => 'admin' , 'guard_name' => 'web'],
+                    ['name' => 'staff' , 'guard_name' => 'web'],
+                    ['name' => 'client' , 'guard_name' => 'client'],
+                ];
+    
 
         foreach ($roles as $role) {
             Role::firstOrCreate(['name' => $role]);
-            $this->command->info("✔️ Role created: {$role}");
+            $this->command->info("Role created: {$role['name']} ({$role['guard_name']})");
+                     
+
         }
     }
 }

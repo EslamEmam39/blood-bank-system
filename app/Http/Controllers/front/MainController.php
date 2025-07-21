@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Blood_type;
 use App\Models\City;
+use App\Models\Client;
 use App\Models\ContactUs;
 use App\Models\DonationRequest;
 use App\Models\Governorate;
@@ -17,6 +18,7 @@ class MainController extends Controller
     public function index(Request $request)
     
     {
+ 
 
         $articles = Article::latest()->paginate(9);
         $bloodTypys = Blood_type::all();
